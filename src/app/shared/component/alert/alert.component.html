@@ -1,0 +1,6 @@
+<div class="alert" [ngClass]="{'alert-success':code==200,'alert-danger':code==404}" *ngIf="code>0">
+  <strong>{{status}}</strong>
+  <span class="cancel-alert" (click)="cancel()" style="cursor:pointer;">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>

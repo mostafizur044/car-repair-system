@@ -1,0 +1,147 @@
+<app-alert [status]="extra.status" [code]="extra.code"></app-alert>
+
+<div class="container-fliude">
+    <div>
+        <h2>Customer List
+            <button class="btn btn-sm btn-outline-primary float-right" (click)="initAdd(content)">Add Customer</button>
+        </h2>
+    </div>
+    <div class="card">
+      <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'id')">
+                    ID
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='id'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='id'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'regNo')">
+                    Reg. No.
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='regNo'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='regNo'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'firstName')">
+                    Name
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='firstName'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='firstName'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'gender')">
+                    Gender
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='gender'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='gender'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'email')">
+                    Email
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='email'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='email'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'phone')">
+                    Phone
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='phone'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='phone'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'address')">
+                    Address
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='address'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='address'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'dob',true)">
+                    DOB
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='dob'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='dob'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(customerArray,'joinDate',true)">
+                    Join Date
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='joinDate'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='joinDate'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cus of customerArray | paginate: { itemsPerPage: pagi.itemPerPage, currentPage: pagi.page };
+                 trackBy:trackByCustomer">
+                  <th class="align-middle" scope="row">{{cus.id}}</th>
+                  <td class="align-middle">{{cus.regNo}}</td>
+                  <td class="align-middle">{{cus.firstName}} {{cus.lastName}}</td>
+                  <td class="align-middle">{{cus.gender}}</td>
+                  <td class="align-middle">{{cus.email}}</td>
+                  <td class="align-middle">{{cus.phone}}</td>
+                  <td class="align-middle">{{cus.address}}</td>
+                  <td class="align-middle">{{cus.dob}}</td>
+                  <td class="align-middle">{{cus.joinDate}}</td>
+                  <td class="align-middle">
+                      <button class="btn btn-sm btn-outline-primary btn-block" (click)="initEdit(content,cus)">
+                        <i class="fa fa-pencil-square-o"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger btn-block" (click)="initArchive(delete,cus)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+            <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+        </div>
+        <div class="col-md-4">
+          <p class="ml-4"> Total
+            <select name="pagina" [(ngModel)]="pagi.itemPerPage">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+            </select>
+            Entries Shown
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modals -->
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <h2>Customer Form
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </h2>
+        <div class="card">
+          <div class="card-body">
+            <form #customerForm="ngForm">
+
+              <cutomer-form [customer]=customer></cutomer-form>
+              
+              <button type="button" class="btn btn-outline-primary" *ngIf="!extra.edit"
+                [disabled]="!customerForm.valid" (click)="submitCustomer()">Submit</button>
+              <button type="button" class="btn btn-outline-primary" *ngIf="extra.edit"
+              [disabled]="!customerForm.valid" (click)="updateCustomer()">Update</button>
+              <button type="button" class="btn btn-outline-danger" (click)="c('Close click')">Close</button>
+            </form>
+          </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #delete let-c="close" let-d="dismiss">
+    <div class="modal-body text-center">
+      <h4>Do you want to delete?
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </h4>
+      <div>
+        <button class="btn btn-outline-primary" (click)="archiveCustomer()">Yes</button>
+        <button class="btn btn-outline-danger" (click)="c('Close click')">No</button>
+      </div>
+  </div>
+</ng-template>

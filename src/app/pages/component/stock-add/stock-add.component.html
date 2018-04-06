@@ -1,0 +1,15 @@
+<app-alert [status]="extra.status" [code]="extra.code"></app-alert>
+
+<div class="container">
+    <h2>Add Stock</h2>
+    <div class="card">
+      <div class="card-body">
+        <form #stockForm="ngForm" (ngSubmit)="submitStock()">
+
+          <stock-form [stock]="stock"></stock-form>
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>

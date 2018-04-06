@@ -1,0 +1,118 @@
+<div class="container-fliude">
+  <h2>Car Check Out</h2>
+  <div class="row">
+    <div class="card col-md-5" style="margin:0px; padding:0px;">
+      <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th>SL No</th>
+                  <th>Catagory</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of stockArray; let i = 'index'">
+                  <td>{{i+1}}</td>
+                  <td>{{s.category}}</td>
+                  <td>{{s.items.length}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+  
+    <div class="card col-md-7" style="margin:0px; padding:0px;">
+      <div class="card-body checkOut">
+          <h4>Car Info</h4>
+          <div class="row">
+            <div class="col">
+              <p><strong>Car Reg. No.</strong></p>
+              <input type="text" class="form-control" name="carReg" #carReg (blur)="findCar(carReg.value)">
+            </div>
+            <div class="col">
+              <p><strong>Customer Name</strong></p>
+              <p>{{car?.customer.firstName}} {{car?.customer.lastName}}</p>
+            </div>
+          </div>
+          <div class="row" style="padding:5px 15px">
+            <div class="col" style="border:1px solid;">
+              <p><strong>Brand</strong></p>
+              <p>{{car?.brand}}</p>
+            </div>
+            <div class="col" style="border:1px solid;">
+              <p><strong>Model</strong></p>
+              <p>{{car?.model}}</p>
+            </div>
+            <div class="col" style="border:1px solid;">
+              <p><strong>Entry Date</strong></p>
+              <p>{{car?.entryDate}}</p>
+            </div>
+          </div>
+          <h4>Select Category & Item</h4>
+          <div class="row">
+              <div class="col">
+                <p><strong>Category</strong></p>
+                <p>
+                  <select class="form-control" #category (change)="changeItem(category.value)">
+                    <option></option>
+                    <option *ngFor="let c of keyArr" [value]="c">{{c}}</option>
+                  </select>
+                </p>
+              </div>
+              <div class="col">
+                <p><strong>Item</strong></p>
+                <p>
+                  <select class="form-control" #item (change)="findStock(category.value,item.value)">
+                    <option></option>
+                    <option *ngFor="let c of itemArray" [value]="c.itemNo">{{c.itemNo}}</option>
+                  </select>
+                </p>
+              </div>
+            </div>
+          <div class="col">
+            <table class="table table-striped table-hover table-bordered table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Catagory</th>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of itemSold; let i = 'index'">
+                  <td>{{s.category}}</td>
+                  <td>{{s.itemNo}}</td>
+                  <td>{{s.sellPrice}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-danger" (click)="removeFromPrint(s,i)">X</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Service Charge</th>
+                  <th></th>
+                  <th>
+                      <input type="text" name="chagre" [(ngModel)]="checkOut.serviceCharge"
+                      (change)="serviceCharge()">
+                  </th>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <th></th>
+                  <th>{{checkOut.totalPrice}}</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <button type="button" class="btn btn-outline-primary" (click)="printCheckOut()">Print</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->

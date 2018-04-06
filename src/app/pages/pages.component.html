@@ -1,0 +1,94 @@
+<div id="wrapper">
+    
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg nav-dark bg-dark" 
+        style="z-index:2; border-bottom:1px solid;">
+        <a routerLink="/" class="navbar-brand" style="padding:0px;margin:0px;">
+            <img src="./assets/images/icon.png" alt="Garage" width="80">
+        </a>
+        <button class="navbar-toggler" (click)="toggoleSidenav()">
+            <i class="fa fa-bars fa-fw" style="color:#fff;"></i>
+        </button>
+
+        <div class="navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div ngbDropdown class="nav-link" placement="bottom-right">
+                        <span id="user" ngbDropdownToggle style="cursor:pointer;">
+                            <i class="fa fa-user fa-fw"></i>
+                        </span>
+                        <div ngbDropdownMenu aria-labelledby="user">
+                            <!-- <button class="dropdown-item">Profile</button>
+                            <button class="dropdown-item">Setting</button> -->
+                            <button class="dropdown-item" (click)="logOut()">Logout</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div id="sidenav" appSidenav class="sidenav bg-dark">
+        <ul class="main-ul">
+            <li>
+               <a routerLink="/dashboard" routerLinkActive="active" (click)="hideSidenav()"><i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li>
+                <a class="sidenav-menu"><i class="fa fa-group"></i> Customers 
+                    <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+                </a>
+                <div id="sub-menu">
+                    <ul>
+                        <li><a routerLink="/add-customer" routerLinkActive="active" (click)="hideSidenav()">Add Customer</a></li>
+                        <li><a routerLink="/customer-list" routerLinkActive="active" (click)="hideSidenav()">Customer List</a></li>
+                    </ul>
+                </div>
+                
+            </li>
+            <li>
+                <a class="sidenav-menu"><i class="fa fa-gears"></i> Stocks
+                    <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+                </a>
+                <div id="sub-menu">
+                    <ul>
+                        <li><a routerLink="/add-stock" routerLinkActive="active" (click)="hideSidenav()">Add Stock</a></li>
+                        <li><a routerLink="/stock-list" routerLinkActive="active" (click)="hideSidenav()">Stock List</a></li>
+                    </ul>
+                </div>    
+            </li>
+            <li>
+                <a class="sidenav-menu"><i class="fa fa-automobile"></i> Cars
+                    <span class="right-icon"><i class="fa fa-angle-down"></i></span>
+                </a>
+                <div id="sub-menu">
+                    <ul>
+                        <li><a routerLink="/car-list" routerLinkActive="active" (click)="hideSidenav()">Car List</a></li>
+                        <li><a routerLink="/car-entrance" routerLinkActive="active" (click)="hideSidenav()">Entrance Form</a></li>
+                        <li><a routerLink="/car-leave" routerLinkActive="active" (click)="hideSidenav()">Leave Form</a></li>
+                    </ul>
+                </div>    
+            </li>
+            <li>
+                <a routerLink="/employee" routerLinkActive="active" (click)="hideSidenav()"><i class="fa fa-briefcase"></i> Employee</a>   
+            </li>
+        </ul>
+    </div>
+     
+    <div id="page-wrapper">
+        <router-outlet></router-outlet>       
+    </div>
+    <!-- /#page-wrapper -->
+    
+</div>

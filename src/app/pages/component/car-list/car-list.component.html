@@ -1,0 +1,156 @@
+<app-alert [status]="extra.status" [code]="extra.code"></app-alert>
+
+<div class="container-fliude">
+    <h2>Car List
+        <button class="btn btn-sm btn-outline-primary float-right" (click)="initAdd(content)">Add Car</button>
+    </h2>
+    <div class="card">
+      <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'id')">
+                    ID
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='id'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='id'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'carRegNo')">
+                    Car Reg. No.
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='carRegNo'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='carRegNo'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col">
+                    Customer Reg. No.
+                  </th>
+                  <th class="align-middle" scope="col">
+                    Customer Name
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'brand')">
+                    Brand
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='brand'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='brand'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'model')">
+                    Model
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='model'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='model'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'carPlateNo')">
+                    Number Plate
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='carPlateNo'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='carPlateNo'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'entryDate',true)">
+                    Entry Date
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='entryDate'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='entryDate'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'color')">
+                    Color
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='color'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='color'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(carArray,'enginNo')">
+                    Engin No.
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='enginNo'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='enginNo'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col">
+                    Emergency Contact
+                  </th>
+                  <th class="align-middle" scope="col">
+                    Initial Problem
+                  </th>
+                  <th class="align-middle" scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let car of carArray | paginate: { itemsPerPage: pagi.itemPerPage, currentPage: pagi.page };
+                 trackBy:trackByCar">
+                  <th class="align-middle" scope="row">{{car.id}}</th>
+                  <td class="align-middle">{{car.carRegNo}}</td>
+                  <td class="align-middle">{{car.customer.regNo}}</td>
+                  <td class="align-middle">{{car.customer.firstName}}</td>
+                  <td class="align-middle">{{car.brand}}</td>
+                  <td class="align-middle">{{car.model}}</td>
+                  <td class="align-middle">{{car.carPlateNo}}</td>
+                  <td class="align-middle">{{car.entryDate}} {{car.entryTime}}</td>
+                  <td class="align-middle">{{car.color}}</td>
+                  <td class="align-middle">{{car.enginNo}}</td>
+                  <td class="align-middle">{{car.emrgencyContact}}</td>
+                  <td class="align-middle" style="white-space:normal;">{{car.initProblem}}</td>
+                  <td class="align-middle">
+                      <button class="btn btn-sm btn-outline-primary btn-block" (click)="initEdit(content,car)">
+                        <i class="fa fa-pencil-square-o"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger btn-block" (click)="initArchive(delete,car)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+            <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+        </div>
+        <div class="col-md-4">
+          <p class="ml-4"> Total
+            <select name="pagina" [(ngModel)]="pagi.itemPerPage">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+            </select>
+            Entries Shown
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modals -->
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <h2>Stock Form
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </h2>
+        <div class="card">
+          <div class="card-body">
+            <form #carForm="ngForm">
+
+              <car-form [car]="car" [cusReg]="cusReg" [customerArray]="customerArray" 
+              (changeCustomer)="changeCustomer($event)"></car-form>
+              
+              <button type="button" class="btn btn-outline-primary" *ngIf="!extra.edit"
+                [disabled]="!carForm.valid" (click)="submitCar()">Submit</button>
+              <button type="button" class="btn btn-outline-primary" *ngIf="extra.edit"
+              [disabled]="!carForm.valid" (click)="updateCar()">Update</button>
+              <button type="button" class="btn btn-outline-danger" (click)="c('Close click')">Close</button>
+            </form>
+          </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #delete let-c="close" let-d="dismiss">
+    <div class="modal-body text-center">
+      <h4>Do you want to delete?
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </h4>
+      <div>
+        <button class="btn btn-outline-primary" (click)="archiveCar()">Yes</button>
+        <button class="btn btn-outline-danger" (click)="c('Close click')">No</button>
+      </div>
+  </div>
+</ng-template>

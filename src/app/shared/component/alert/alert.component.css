@@ -1,0 +1,13 @@
+.alert{
+    position: fixed;
+    top: 0px;
+    left:35%;
+    text-align: center;
+    width:30%;
+    z-index: 10;
+}
+.cancel-alert{
+    position: absolute;
+    top: 30%;
+    right: 5%;
+}

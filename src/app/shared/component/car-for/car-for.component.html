@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-6 form-group">
+      <label for="cate">Customer Reg. No.</label>
+      <select class="form-control" id="cate" name="customer" #customer [(ngModel)]="cusReg"
+       (change)="changeCustomer(customer.value)">
+        <option *ngFor="let cus of customerArray" [value]="cus.regNo">{{cus.regNo}} ({{cus.firstName}})</option>
+      </select>
+  </div>
+  <div class="col-md-6 form-group">
+      <label for="Name">Car Barnd</label>
+      <input type="text" class="form-control" id="Name" name="brand" [(ngModel)]="car.brand">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 form-group">
+      <label for="model">Car Model</label>
+      <input type="text" class="form-control" id="model" name="model" [(ngModel)]="car.model">
+  </div>
+  <div class="col-md-6 form-group">
+      <label for="reg">Car No. Plate</label>
+      <input type="text" class="form-control" id="reg" name="carRegNo" [(ngModel)]="car.carPlateNo">
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label for="dob">Entry Time</label>
+        <input type="time" class="form-control" id="dob" name="entryTime" [(ngModel)]="car.entryTime">
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="qunt">Color</label>
+        <input type="text" class="form-control" id="qunt" name="color" [(ngModel)]="car.color">
+    </div>
+  </div>
+<div class="row">
+  <div class="col-md-6 form-group">
+      <label for="buy">Engin No.</label>
+      <input type="text" class="form-control" id="buy" name="enginNo" [(ngModel)]="car.enginNo">
+  </div>
+  <div class="col-md-6 form-group">
+      <label for="sell">Emrgency Contact</label>
+      <input type="text" class="form-control" id="sell" name="emrgencyContact" [(ngModel)]="car.emrgencyContact">
+  </div>
+</div>
+<div class="form-group">
+  <label for="endDate">Initial Problem <small>(optional)</small></label>
+  <textarea type="text" class="form-control" id="endDate" name="initProblem" [(ngModel)]="car.initProblem"></textarea>
+</div>

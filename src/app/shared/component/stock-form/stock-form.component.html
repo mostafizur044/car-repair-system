@@ -1,0 +1,66 @@
+  <div class="row">
+    <div class="col-md-6 form-group">
+        <label for="cate">Category</label>
+        <select class="form-control" id="cate" name="cate" #catagory="ngModel" [(ngModel)]="stock.category">
+          <option value="Multimedia">Multimedia</option>
+          <option value="Bumper">Bumper</option>
+          <option value="Looking Glass">Looking Glass</option>
+          <option value="Head Lightes">Head Lightes</option>
+          <option value="Doors">Doors</option>
+          <option value="Front Glass">Front Glass</option>
+          <option value="Battery">Battery</option>
+          <option value="AC">AC</option>
+          <option value="Engine Oil">Engine Oil</option>
+          <option value="Wheels">Wheels</option>
+        </select>
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="dob">Adding Date</label>
+        <input type="date" class="form-control" id="dob" #date="ngModel" name="adate" [(ngModel)]="stock.date">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 form-group">
+        <label for="buy">Buy Price</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="buy" #buyPrice="ngModel" 
+          name="buy" [(ngModel)]="stock.buyPrice">
+          <div class="input-group-append">
+            <span class="input-group-text">Taka</span>
+          </div>
+        </div>
+        <div *ngIf="buyPrice.touched">
+          <small class="error" *ngIf="validation.checkNumber(stock.buyPrice)">
+            please enter number
+          </small>
+        </div> 
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="sell">Sell Price</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="sell" #sellPrice="ngModel" 
+          name="sell" [(ngModel)]="stock.sellPrice">
+          <div class="input-group-append">
+            <span class="input-group-text">Taka</span>
+          </div>
+        </div>
+        <div *ngIf="sellPrice.touched">
+          <small class="error" *ngIf="validation.checkNumber(stock.sellPrice)">
+            please enter number
+          </small>
+        </div> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 form-group">
+        <label for="warr">Warrenty</label>
+        <select class="form-control" id="warr" name="warn" #warrenty="ngModel" [(ngModel)]="stock.warrenty">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="endDate">Warrenty End Date <small>(optional)</small></label>
+        <input type="date" class="form-control" id="endDate" #warrentyDateEnd="ngModel" name="warEnd" [(ngModel)]="stock.warrentyDateEnd">
+    </div>
+  </div>

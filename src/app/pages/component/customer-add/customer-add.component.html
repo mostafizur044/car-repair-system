@@ -1,0 +1,15 @@
+<app-alert [status]="extra.status" [code]="extra.code"></app-alert>
+
+<div class="container">
+  <h2>Add Customer</h2>
+  <div class="card">
+    <div class="card-body">
+      <form #customerForm="ngForm" (ngSubmit)="submitCustomer()">
+        
+        <cutomer-form [customer]=customer></cutomer-form>
+  
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

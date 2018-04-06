@@ -1,0 +1,160 @@
+<div class="container-fliud" style="margin-bottom:30px;">
+  <div class="row">
+    <div class="col-sm-2 col-md-3">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3"><h3><i class="fa fa-users"></i></h3></div>
+            <div class="col-9">
+              <h4>Customers</h4>
+              <h4>{{customerArray.length}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2 col-md-3">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3"><h3><i class="fa fa-automobile"></i></h3></div>
+            <div class="col-9">
+              <h4>Cars</h4>
+              <h4>{{carArray.length}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2 col-md-3">
+      <div class="card bg-warning text-white">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3"><h3><i class="fa fa-gears"></i></h3></div>
+            <div class="col-9">
+              <h4>Stocks</h4>
+              <h4>{{stockArray.length}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2 col-md-3">
+      <div class="card bg-danger text-white">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3"><h3><i class="fa fa-briefcase"></i></h3></div>
+            <div class="col-9">
+              <h4>Employees</h4>
+              <h4>{{empArray.length}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white"><h4>Sold Items Table</h4></div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th>SL No</th>
+                  <th>Catagory</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of stockArraySold; let i = 'index'">
+                  <td>{{i+1}}</td>
+                  <td>{{s.category}}</td>
+                  <td>{{s.quantity}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white"><h4>Top 5 Items Sold</h4></div>
+        <div class="card-body">
+          <div *ngIf="chart">
+            <canvas id="canvasBar">{{ chart['bar'] }}</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-danger text-white"><h4>Customer Table</h4></div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Pos</th>
+                  <th>Customer</th>
+                  <th>Customer Reg No</th>
+                  <th>Entry (times)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of topFiveCus; let i = 'index'">
+                  <td>{{i+1}}</td>
+                  <td>{{s.customer.firstName}}</td>
+                  <td>{{s.customer.regNo}}</td>
+                  <td>{{s.times}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-danger text-white"><h4>Top 5 Customers</h4></div>
+        <div class="card-body">
+          <div *ngIf="chart">
+            <canvas id="canvasDou">{{ chart['dou'] }}</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-success text-white"><h4>Total Car Entries</h4></div>
+        <div class="card-body">
+          <div *ngIf="chart">
+            <canvas id="canvasLine">{{ chart['line'] }}</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-success text-white"><h4>Top 5 Items Sold</h4></div>
+        <div class="card-body">
+          <div *ngIf="chart">
+            <canvas id="canvasPie">{{ chart['pie'] }}</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+</div>

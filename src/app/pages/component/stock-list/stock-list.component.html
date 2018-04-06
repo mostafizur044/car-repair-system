@@ -1,0 +1,139 @@
+<app-alert [status]="extra.status" [code]="extra.code"></app-alert>
+
+<div class="container-fliude">
+    <h2>Stock List
+        <button class="btn btn-sm btn-outline-primary float-right" (click)="initAdd(content)">Add Stock</button>
+    </h2>
+    <div class="card">
+      <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'id')">
+                    ID
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='id'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='id'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'itemNo')">
+                    Item No.
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='itemNo'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='itemNo'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'category')">
+                    Category
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='category'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='category'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'buyPrice')">
+                    Buying Price
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='buyPrice'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='buyPrice'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'sellPrice')">
+                    Selling Price
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='sellPrice'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='sellPrice'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'date',true)">
+                    Adding Date
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='date'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='date'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'warrenty')">
+                    Warrenty
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='warrenty'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='warrenty'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col" (click)="sortTable(stockArray,'warrentyDateEnd',true)">
+                    Warrenty End
+                    <span><i class="fa fa-caret-down" *ngIf="prop=='warrentyDateEnd'&&reverse"></i></span>
+                    <span><i class="fa fa-caret-up" *ngIf="prop=='warrentyDateEnd'&&!reverse"></i></span>
+                  </th>
+                  <th class="align-middle" scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let stock of stockArray | paginate: { itemsPerPage: pagi.itemPerPage, currentPage: pagi.page };
+                 trackBy:trackByStock">
+                  <th class="align-middle" scope="row">{{stock.id}}</th>
+                  <td class="align-middle">{{stock.itemNo}}</td>
+                  <td class="align-middle">{{stock.category}}</td>
+                  <td class="align-middle">{{stock.buyPrice}}</td>
+                  <td class="align-middle">{{stock.sellPrice}}</td>
+                  <td class="align-middle">{{stock.date}}</td>
+                  <td class="align-middle">{{stock.warrenty}}</td>
+                  <td class="align-middle">{{stock.warrentyDateEnd}}</td>
+                  <td class="align-middle">
+                      <button class="btn btn-sm btn-outline-primary btn-block" (click)="initEdit(content,stock)">
+                        <i class="fa fa-pencil-square-o"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger btn-block" (click)="initArchive(delete,stock)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+            <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+        </div>
+        <div class="col-md-4">
+          <p class="ml-4"> Total
+            <select name="pagina" [(ngModel)]="pagi.itemPerPage">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+            </select>
+            Entries Shown
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modals -->
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <h2>Stock Form
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </h2>
+        <div class="card">
+          <div class="card-body">
+            <form #stockForm="ngForm">
+
+              <stock-form [stock]=stock></stock-form>
+              
+              <button type="button" class="btn btn-outline-primary" *ngIf="!extra.edit"
+                [disabled]="!stockForm.valid" (click)="submitStock()">Submit</button>
+              <button type="button" class="btn btn-outline-primary" *ngIf="extra.edit"
+              [disabled]="!stockForm.valid" (click)="updateStock()">Update</button>
+              <button type="button" class="btn btn-outline-danger" (click)="c('Close click')">Close</button>
+            </form>
+          </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #delete let-c="close" let-d="dismiss">
+    <div class="modal-body text-center">
+      <h4>Do you want to delete?
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </h4>
+      <div>
+        <button class="btn btn-outline-primary" (click)="archiveStock()">Yes</button>
+        <button class="btn btn-outline-danger" (click)="c('Close click')">No</button>
+      </div>
+  </div>
+</ng-template>

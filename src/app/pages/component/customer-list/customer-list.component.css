@@ -1,0 +1,16 @@
+tr>th{
+    cursor: pointer;
+    white-space: nowrap;
+}
+tr>td{
+    white-space: nowrap;
+}
+tr>th>span{
+    margin-left:5px;
+}
+@media (max-width:767px){
+    .card{
+        display: block;
+        margin-top: 35px;
+    }
+}
